@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserControllers;
 
 use App\Entity\User;
 use App\Manager\UserManager;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
-class CreateUser
+class UserProfile
 {
     /**
      * @var UserManager
@@ -23,12 +23,11 @@ class CreateUser
     }
 
     /**
-     * @param $data
      * @return mixed
      * @throws \Exception
      */
-    public function __invoke($data)
+    public function __invoke()
     {
-        return $this->userManager->registerAccount($data);
+        $this->userManager->getCurrentUser();
     }
 }

@@ -13,17 +13,19 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *      normalizationContext={"groups"={"user:read"}, "enable_max_depth"="true"},
  *      denormalizationContext={"groups"={"user:write"}, "enable_max_depth"="true"},
  *      collectionOperations={
- *          "get"={},
  *          "create_user"={
  *              "method"="POST",
  *              "path"="/users/create",
- *              "controller"=App\Controller\CreateUser::class
+ *              "controller"=App\Controller\UserControllers\CreateUser::class
  *          }
  *      },
  *      itemOperations={
- *          "get"={},
- *          "put"={},
- *          "delete"={},
+ *          "user_profile"={
+ *              "method"="GET",
+ *              "path"="/users/profile",
+ *              "controller"=App\Controller\UserControllers\UserProfile::class
+ *          },
+ *          "put"={}
  *      }
  * )
  * @ORM\Entity(repositoryClass=UserRepository::class)

@@ -7,6 +7,7 @@ use App\Repository\UserRepository;
 use App\Services\PasswordService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Security\Core\Security;
 
 class UserManager
 {
@@ -25,6 +26,8 @@ class UserManager
      */
     protected $userRepository;
 
+    protected $security;
+
     /**
      * UserManager constructor.
      * @param EntityManagerInterface $entityManager
@@ -34,11 +37,13 @@ class UserManager
     public function __construct(
         EntityManagerInterface $entityManager,
         PasswordService $passwordService,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        Security $security
     ) {
         $this->em = $entityManager;
         $this->passwordService = $passwordService;
         $this->userRepository = $userRepository;
+        $this->security = $security;
     }
 
     /**
@@ -90,6 +95,16 @@ class UserManager
 
         return [
             'message' => 'Création de compte enregistrée.',
+            'user' => $user
+        ];
+    }
+
+    public function getCurrentUser() {
+        $user = $this->security->getUser();
+
+        dd($user);
+        return [
+            'message' => 'Ok.',
             'user' => $user
         ];
     }
